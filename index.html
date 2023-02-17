@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cines la Butaca</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/miscript.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/ticket.png" alt="" width="120" height="96" class="d-inline-block align-text-middle">
+                <b style="font-size: 2rem;">Cines la Butaca</b>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNavAltMarkup">
+                <div class="navbar-nav fs-5">
+                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link" href="#">Cartelera</a>
+                    <a class="nav-link" href="#">Próximamente</a>
+                    <a class="nav-link" href="#">Horario</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="hero container-fluid bg-image p-5 text-center">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <h1 class="mb-3">Multicines La Butaca</h1>
+                <h4 class="mb-3">Encuentra siempre el mejor asiento</h4>
+                <a class="btn btn-outline-light btn-lg" href="javascript:mostrarReserva()" role="button">Reserva tu
+                    butaca</a>
+            </div>
+        </div>
+    </section>
+    <section id="seleccionEntradas" class="d-none">
+        <div class="container-fluid gx-5">
+            <div class="row mt-5 me-5">
+                <div class="col-6">
+                    <div class="col-10 mb-2">
+                        <label class="form-label">Nombre</label>
+                        <input type="nombre" class="form-control" id="nombreEspectador">
+                    </div>
+                    <div class="col-3 mb-2">
+                        <label class="form-label">Fila</label>
+                        <input type="fila" class="form-control" id="filaEspectador">
+                    </div>
+                    <div class="col-12 mb-2 d-flex justify-content-between">
+                        <div>
+                            <label class="form-label d-block">Butaca</label>
+                            <input type="butaca" class="form-control w-25 d-inline-block" id="butacaEspectador">
+                        </div>
+                        <div>
+                            <button onclick="reservarPelicula()" class="btn btn-danger me-5">Reservar</button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <span class="fw-bold fs-5">Pelicula seleccionada:</span>
+                        <div id="peliculaSeleccionada" class="d-inline"></div>
+
+                    </div>
+                </div>
+
+                <div class="peliculas col-6 bg-light overflow-scroll border border-dark rounded-3 altoFila">
+                    <!--Descripcion de las películas-->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <h2 class="text-center mt-4">Listado entradas vendidas</h2>
+            <div class="row listadoVendidas">
+            <!--Array de vendidos-->
+            </div>
+
+        </div>
+    </section>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
