@@ -1,0 +1,10 @@
+.hero {
+    background-image: url('../img/asientos.jpg');
+    height:50vh;
+    background-size: contain;
+}
+
+.bi-trash-fill {
+    color: red;
+    font-size: 4rem;
+}
