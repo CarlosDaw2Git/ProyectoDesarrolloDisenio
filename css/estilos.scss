@@ -1,6 +1,18 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
 
+/*Mis estilos*/
+
+#inputNombre{
+    width: 400pt;
+    height: 300pt;
+    transform-style: preserve-3d;
+    transform: perspective(2000px) rotateX(-70deg);
+    /*Se puede hacer en Bootstrap*/
+    background-color: white;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+}
+
 /*Estilos profesor*/
 .hero {
     background-image: url('../img/asientos.jpg');
