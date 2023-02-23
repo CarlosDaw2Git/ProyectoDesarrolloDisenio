@@ -22,10 +22,11 @@
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNavAltMarkup">
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav fs-5">
                     <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                     <a class="nav-link" href="#">Cartelera</a>
+                    <a class="nav-link" href="#" id="linkUbicacion">Ubicacion</a>
                     <a class="nav-link" href="#">Próximamente</a>
                     <a class="nav-link" href="#">Horario</a>
                 </div>
@@ -33,58 +34,22 @@
         </div>
     </nav>
     <section class="hero container-fluid bg-image p-5 text-center">
-        <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="d-flex justify-content-around align-items-center h-100">
             <div class="text-white">
                 <h1 class="mb-3">Multicines La Butaca</h1>
                 <h4 class="mb-3">Encuentra siempre el mejor asiento</h4>
-                <a class="btn btn-outline-light btn-lg" href="javascript:mostrarReserva()" role="button">Reserva tu
+                <a class="btn btn-outline-light btn-lg" href="#" role="button" id="botonReserva">Reserva tu
                     butaca</a>
             </div>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/FSyWAxUg3Go" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+            encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+            </iframe>
         </div>
     </section>
-    <section id="seleccionEntradas" class="d-none">
-        <div class="container-fluid gx-5">
-            <div class="row mt-5 me-5">
-                <div class="col-6">
-                    <div class="col-10 mb-2">
-                        <label class="form-label">Nombre</label>
-                        <input type="nombre" class="form-control" id="nombreEspectador">
-                    </div>
-                    <div class="col-3 mb-2">
-                        <label class="form-label">Fila</label>
-                        <input type="fila" class="form-control" id="filaEspectador">
-                    </div>
-                    <div class="col-12 mb-2 d-flex justify-content-between">
-                        <div>
-                            <label class="form-label d-block">Butaca</label>
-                            <input type="butaca" class="form-control w-25 d-inline-block" id="butacaEspectador">
-                        </div>
-                        <div>
-                            <button onclick="reservarPelicula()" class="btn btn-danger me-5">Reservar</button>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <span class="fw-bold fs-5">Pelicula seleccionada:</span>
-                        <div id="peliculaSeleccionada" class="d-inline"></div>
-
-                    </div>
-                </div>
-
-                <div class="peliculas col-6 bg-light overflow-scroll border border-dark rounded-3 altoFila">
-                    <!--Descripcion de las películas-->
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <h2 class="text-center mt-4">Listado entradas vendidas</h2>
-            <div class="row listadoVendidas">
-            <!--Array de vendidos-->
-            </div>
-
-        </div>
+    <section id="contenidoWeb" class="mt-3 mb-3">
+        
     </section>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

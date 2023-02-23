@@ -1,13 +1,37 @@
 let listadoPeliculas = ["Avatar 2: El camino del agua;192", "Babylon;189", "Los renglones torcidos de Dios;154"]
 let butacasOcupadas = []
 
-function mostrarReserva(){
-    $('#seleccionEntradas').removeClass('d-none')
+$(document).ready(function(){
+    $('#linkUbicacion').click(function(){
+        $.ajax({
+            type: 'GET',
+            url: 'mapa.html',
+            data: {},
+            success: function(data){
+                $('#contenidoWeb').html(data)
+            }
+        })
+    })
+    $('#botonReserva').click(function(){
+        $.ajax({
+            type: 'GET',
+            url: 'reserva.html',
+            data: {},
+            success: function(data){
+                $('#contenidoWeb').html(data)
+                mostrarReserva()
+            }
+        })
+    })
+})
 
+function mostrarReserva(){
     for(let index in listadoPeliculas){
         let pelicula = listadoPeliculas[index].split(";")
         $('.peliculas').append(filaPeliculaHtml(index, pelicula[0], pelicula[1]))
     }
+
+    //$('#botonReserva').attr('disable', true)
 }
 
 function seleccionarPelicula(index){
