@@ -38,13 +38,108 @@
                 <!--Descripcion de las películas-->
             </div>
         </div>
+        <div class="mt-5 mb-5 d-flex align-items-center">
+            <div id="sala" class="bg-dark ps-5 pe-5 pt-3 pb-3 d-inline-block m-auto">
+                <div id="pantalla"></div>
+                <div id="asientos" class="container">
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                        <span class="asiento"><i class="bi bi-bag-fill"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="container-fluid">
         <h2 class="text-center mt-4">Listado entradas vendidas</h2>
         <div class="row listadoVendidas">
             <!--Array de vendidos-->
         </div>
-    
     </div>
+    <script>
+        $(document).ready(function(){
+            $('.asiento:not(.ocupado)').click(function(){
+                $(this).toggleClass('seleccionado')
+                let listaAsientos = $('.asiento')
+                alert('Selecionado: '+listaAsientos.index($(this)))
+            })
+        })
+    </script>
 </body>
 </html>

@@ -3,14 +3,34 @@
 
 /*Mis estilos*/
 
+/*-Asientos*/
+#sala{
+    background-color: rgb(36, 35, 51);
+}
 #pantalla{
-    width: 400pt;
-    height: 300pt;
+    width: 200pt;
+    height: 150pt;
     transform-style: preserve-3d;
     transform: perspective(2000px) rotateX(-70deg);
-    /*Se puede hacer en Bootstrap*/
     background-color: white;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.asiento:not(.ocupado){
+    color: rgba($color: #FFFFFF, $alpha: 0.25)
+}
+.asiento:not(.ocupado).seleccionado{
+    color: #6feaf6;
+}
+.asiento.ocupado{
+    color: white;
+}
+
+.asiento:nth-child(2){
+    margin-right: 25pt;
+}
+.asiento:nth-child(6){
+    margin-right: 25pt;
 }
 
 /*Estilos profesor*/
