@@ -1,0 +1,15 @@
+//Parte de html
+$.ajax({
+    url: 'nombreArchivo.php',
+    type: 'POST',
+    success: function(data){
+        //Lo que sea
+    }
+})
+
+//Parte de PHP
+<?php
+$nombre = 'Juanito';
+header("Content-Type: application/json);
+echo json_encode($nombre);
+?>
