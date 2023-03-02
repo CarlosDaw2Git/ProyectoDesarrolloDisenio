@@ -12,6 +12,7 @@ $(document).ready(function(){
             }
         })
     })
+
     $('#botonReserva').click(function(){
         $.ajax({
             type: 'GET',
@@ -25,13 +26,21 @@ $(document).ready(function(){
     })
 })
 
+$(document).on("click", ".asiento:not(.ocupado)", function(){
+    $(this).toggleClass('seleccionado')
+})
+$(document).on("click", "#reservarAsiento", function(){
+    reservarPelicula()
+})
+$(document).on("click", '.btnEliminar', function(){
+    borrar($(this).parent().parent())
+})
+
 function mostrarReserva(){
     for(let index in listadoPeliculas){
         let pelicula = listadoPeliculas[index].split(";")
         $('.peliculas').append(filaPeliculaHtml(index, pelicula[0], pelicula[1]))
     }
-
-    //$('#botonReserva').attr('disable', true)
 }
 
 function seleccionarPelicula(index){
@@ -94,38 +103,28 @@ function reservarPelicula(){
     butacasOcupadas[peliculaSeleccionada].push(fila+";"+butaca)
 }
 
-function borrar(peliculaSeleccionada, fila, butaca){
-    let allVendidas = $('.listadoVendidas > .row')
-    let index = 0
-    for(let i in allVendidas){
-        let peliCabecera = allVendidas.eq(i).find('.cabecera h3').text()
-        if(peliCabecera == peliculaSeleccionada){
-            index = i
-        }
-    }
+function borrar(fila){
+    let elementoPadre = fila.parent()
+    let nombrePelicula = elementoPadre.find('.cabecera h3').text()
+    let filaAsiento = fila.find('p').eq(1).text().split(" ")[1]
+    let butacaAsiento = fila.find('p').eq(2).text().split(" ")[1]
 
-    let allButacas = allVendidas.eq(index).find('.row')
-    for(let i in allButacas){
-        let filaActual = allButacas.eq(i).find('p').eq(1).text().split(" ")[1]
-        let butacaActual = allButacas.eq(i).find('p').eq(2).text().split(" ")[1]
-        if(filaActual == fila && butacaActual == butaca){
-            allButacas.eq(i).remove()
-            butacasOcupadas[peliculaSeleccionada].splice(butacasOcupadas[peliculaSeleccionada].indexOf(filaActual+";"+butacaActual))
-            let numAsientos = allButacas.length - 1
-            if(numAsientos == 0){
-                allVendidas.eq(index).remove()
-                butacasOcupadas[peliculaSeleccionada] == undefined
-            }
-            else{
-                allVendidas.eq(index).find('.cabecera p').text(numAsientos+' asientos ocupados')
+    if(elementoPadre.find('.row').length < 1){
+        elementoPadre.remove()
+        butacasOcupadas[nombrePelicula] == undefined
+    }
+    else{
+        fila.remove()
+        let valorAsiento = filaAsiento+";"+butacaAsiento
+        for(let index in butacasOcupadas[nombrePelicula]){
+            if(butacasOcupadas[nombrePelicula][index] == valorAsiento){
+                butacasOcupadas[nombrePelicula].splice(index)
             }
         }
     }
 }
 
-
 //Funciones del Examen
-
 function tituloDePeliculaHtml(peliculaSeleccionada) {
     return "<div class='row'>\
     <div class='bg-secondary text-center text-white cabecera'>\
@@ -141,7 +140,7 @@ function filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada) {
     <p>Butaca: " + butaca + "</p>\
     </div>\
     <div class='col-2 d-flex align-items-center border-bottom border-dark border-2'>\
-    <button class='btn' onclick='borrar(\""+ peliculaSeleccionada + "\"," + fila + "," + butaca + ")'><i class='bi bi-trash-fill'></i></button>\
+    <button class='btn btnEliminar'><i class='bi bi-trash-fill'></i></button>\
     </div></div>"
     return filaHtml
 }
