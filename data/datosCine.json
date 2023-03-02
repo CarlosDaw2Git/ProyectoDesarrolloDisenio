@@ -1,0 +1,18 @@
+{
+    "nombre": "Cines: La Butaca",
+    "añoConstruccion": 1990,
+    "salas":[
+        {
+            "nombreSala": "Sala 1",
+            "numAsientos": 45
+        },
+        {
+            "nombreSala": "Sala 2",
+            "numAsientos": 70
+        },
+        {
+            "nombreSala": "Sala 3",
+            "numAsientos": 60
+        }
+    ]
+}

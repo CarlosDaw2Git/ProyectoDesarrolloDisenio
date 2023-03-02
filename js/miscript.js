@@ -13,6 +13,17 @@ $(document).ready(function(){
         })
     })
 
+    $('#linkAcercaDe').click(function(){
+        $.ajax({
+            url: './data/datosCine.json',
+            dataType: 'json',
+            success: mostrarDatosCine,
+            error: function(){
+                console.log("Error al mostrar la información")
+            }
+        })
+    })
+
     $('#botonReserva').click(function(){
         $.ajax({
             type: 'GET',
@@ -36,6 +47,16 @@ $(document).on("click", '.btnEliminar', function(){
     borrar($(this).parent().parent())
 })
 
+//Funcion Acerca De
+function mostrarDatosCine(datosJson){
+    $('#contenidoWeb').html('<div id="datosCine" class="text-center"></div>')
+    let html = '<h2>Acerca De</h2><table id="tablaDatosCine">'
+    html += '<tr><th>Nombre del cine</th><td>'+datosJson.nombre+'</td></tr>'
+    html += '</table>'
+    $('#datosCine').append(html)
+}
+
+//Funciones Reserva
 function mostrarReserva(){
     for(let index in listadoPeliculas){
         let pelicula = listadoPeliculas[index].split(";")
