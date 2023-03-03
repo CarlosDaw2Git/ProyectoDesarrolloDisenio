@@ -85,10 +85,16 @@ function seleccionarPelicula(index){
 }
 
 function reservarPelicula(){
+    //Limpiar mensaje de error por si hay alguno
+    let parrafoError = $('#errorReserva')
+    if(parrafoError.text() != ""){
+        parrafoError.text("")
+    }
+
     //Recoger datos de la pelicula
     let peliculaSeleccionada = $('#peliculaSeleccionada').text()
     if(peliculaSeleccionada == ""){
-        alert("Error, tienes que seleccionar una película")
+        parrafoError.text("*Error, tienes que seleccionar una película")
         return false
     }
     //Recoger datos de la reserva
@@ -96,7 +102,7 @@ function reservarPelicula(){
     let fila = $('#filaEspectador').val()
     let butaca = $('#butacaEspectador').val()
     if(nombre == "" || fila == "" || butaca == ""){
-        alert("Error: Los campos \"Nombre\", \"Fila\" y \"Butaca\" son oblicatorios")
+        parrafoError.text("*Error: Los campos \"Nombre\", \"Fila\" y \"Butaca\" son oblicatorios")
         return false
     }
     //Comprobar si la peli se encuentra en el arrray
@@ -107,7 +113,7 @@ function reservarPelicula(){
     for(let index of butacasOcupadas[peliculaSeleccionada]){
         let asiento = index.split(";")
             if(asiento[0] == fila && asiento[1] == butaca){
-                alert("Error: Esa butaca está ocupada para la película "+peliculaSeleccionada)
+                parrafoError.text("*Error: Esa butaca está ocupada para la película "+peliculaSeleccionada)
                 return false
             }
     }
