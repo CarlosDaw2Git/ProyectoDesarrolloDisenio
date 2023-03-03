@@ -47,16 +47,23 @@ $(document).on("click", '.btnEliminar', function(){
     borrar($(this).parent().parent())
 })
 
-//Funcion Acerca De
+//Funcion - Acerca De
 function mostrarDatosCine(datosJson){
-    $('#contenidoWeb').html('<div id="datosCine" class="text-center"></div>')
-    let html = '<h2>Acerca De</h2><table id="tablaDatosCine">'
+    $('#contenidoWeb').html('<div id="datosCine" class="mt-4 mb-4"></div>')
+    let html = '<h2 class="text-center mb-3">Acerca De</h2><table id="tablaDatosCine">'
     html += '<tr><th>Nombre del cine</th><td>'+datosJson.nombre+'</td></tr>'
-    html += '</table>'
+    html += '<tr><th>Año de construcción</th><td>'+datosJson.añoConstruccion+'</td></tr>'
+    html += '<tr><th rowspan="'+(datosJson.salas.length + 1)+'">Salas</th></tr>'
+    for (let index = 0; index < datosJson.salas.length; index++) {
+        let sala = datosJson.salas[index]
+        html += '<tr><td><span class="fw-bold">'+sala.nombreSala+'</span>'
+        html += '<br>'+sala.numAsientos+'&nbsp;Asientos</td></tr>'
+    }
+    html += '</tr></table>'
     $('#datosCine').append(html)
 }
 
-//Funciones Reserva
+//Funciones - Reserva
 function mostrarReserva(){
     for(let index in listadoPeliculas){
         let pelicula = listadoPeliculas[index].split(";")

@@ -3,6 +3,26 @@
 
 /*Mis estilos*/
 
+/* Index */
+#trailer{
+    width: 400pt;
+    height: 220pt;
+}
+
+/*-Acerca de*/
+#tablaDatosCine{
+    margin: 0 auto;
+}
+
+#tablaDatosCine, #tablaDatosCine th, #tablaDatosCine td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#tablaDatosCine th, #tablaDatosCine td{
+    padding: 10pt;
+}
+
 /*-Asientos*/
 #sala{
     background-color: rgb(36, 35, 51);
