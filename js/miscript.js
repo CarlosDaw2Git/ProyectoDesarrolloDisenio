@@ -47,7 +47,7 @@ $(document).on("click", "#btnInfoPelicula", function(){
         data : {
             //"nombrePelicula": $(this).parent().find('p').eq(0).text()
         },
-        url: './data/BD_Manager.php',
+        url: 'data/BD_Manager.php',
         type: 'POST',
         success: function(datosRecogidos){
             $('#infoPelicula').text(datosRecogidos)
@@ -203,7 +203,7 @@ function filaPeliculaHtml(indice, nombre, minutos) {
     let filaHtml = "<div class='fila mt-3 d-flex justify-content-between align-items-center'>\
     <div class='col-9 ps-2'>\
     <p class='fw-bold mb-0 fs-5'>" + nombre 
-    + "<button class='btn-outline-dark' id='btnInfoPelicula'>i</button></p>\
+    + "<button class='btn btn-primary' id='btnInfoPelicula'>i</button></p>\
     <span class='text-muted'>" + minutos + " minutos</span>\
     </div>\
     <div class='col-3'>\

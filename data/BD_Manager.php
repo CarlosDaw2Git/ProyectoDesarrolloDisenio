@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: application/json");
+//header("Content-Type: application/json");
 //include("BD_Cine.php");
 
 //$bd = new BD_Cine();
