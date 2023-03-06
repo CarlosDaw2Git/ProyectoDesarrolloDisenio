@@ -47,8 +47,8 @@ $(document).on("click", "#btnInfoPelicula", function(){
         data : {
             //"nombrePelicula": $(this).parent().find('p').eq(0).text()
         },
-        url: 'data/BD_Manager.php',
-        type: 'GET',
+        url: './data/BD_Manager.php',
+        type: 'POST',
         success: function(datosRecogidos){
             $('#infoPelicula').text(datosRecogidos)
             /*
