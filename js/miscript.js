@@ -37,8 +37,29 @@ $(document).ready(function(){
     })
 })
 
+
+//Reserva
 $(document).on("click", ".asiento:not(.ocupado)", function(){
     $(this).toggleClass('seleccionado')
+})
+$(document).on("click", "#btnInfoPelicula", function(){
+    $.ajax({
+        data : {
+            //"nombrePelicula": $(this).parent().find('p').eq(0).text()
+        },
+        url: 'data/BD_Manager.php',
+        type: 'GET',
+        success: function(datosRecogidos){
+            $('#infoPelicula').text(datosRecogidos)
+            /*
+            let datosJSON = JSON.parse(datosRecogidos)
+
+            $('#nombre').text(datosJSON.nombre)
+            $('#dni').text(datosJSON.dni)
+            $('#telefono').text(datosJSON.telefono)
+            */
+        }
+    })
 })
 $(document).on("click", "#reservarAsiento", function(){
     reservarPelicula()
@@ -181,7 +202,8 @@ function filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada) {
 function filaPeliculaHtml(indice, nombre, minutos) {
     let filaHtml = "<div class='fila mt-3 d-flex justify-content-between align-items-center'>\
     <div class='col-9 ps-2'>\
-    <p class='fw-bold mb-0 fs-5'>" + nombre + "</p>\
+    <p class='fw-bold mb-0 fs-5'>" + nombre 
+    + "<button class='btn-outline-dark' id='btnInfoPelicula'>i</button></p>\
     <span class='text-muted'>" + minutos + " minutos</span>\
     </div>\
     <div class='col-3'>\
