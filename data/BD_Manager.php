@@ -1,14 +1,16 @@
 <?php
-//header("Content-Type: application/json");
-//include("BD_Cine.php");
+include("BD_Cine.php");
 
-//$bd = new BD_Cine();
+$bd = new BD_Cine();
 
-if(isset($_REQUEST['nombrePelicula'])){
-    echo "Pelicula seleccionada: ".$_REQUEST['nombrePelicula'];
+if(isset($_REQUEST['nombrePelicula']) && !empty($_REQUEST['nombrePelicula'])){
+    $pelicula = BD_Cine::getPeliculaByNombre($_REQUEST['nombrePelicula']);
+    echo json_encode($pelicula->getArray());
 }
 else{
-    echo "Error";
+    echo json_encode(array(
+        'err' => 'Error en la selección de la película'
+    ));
 }
 
 

@@ -38,13 +38,11 @@ class BD_Cine{
         $conexion = null;
 
         if (empty($fila)) {
-            return json_encode(array(
-                "none" => null
-            ));
+            return null;
         }
 
         $pelicula = new Pelicula($fila);
-        return json_encode($pelicula->getArray());
+        return $pelicula;
     }
 }
 

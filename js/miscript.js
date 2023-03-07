@@ -1,6 +1,8 @@
 let listadoPeliculas = ["Avatar 2: El camino del agua;192", "Babylon;189", "Los renglones torcidos de Dios;154"]
 let butacasOcupadas = []
 
+//CARGA DEL ARCHIVO
+//Carga - Index
 $(document).ready(function(){
     $('#linkUbicacion').click(function(){
         $.ajax({
@@ -36,28 +38,20 @@ $(document).ready(function(){
         })
     })
 })
-
-
-//Reserva
+//Carga - Reserva
 $(document).on("click", ".asiento:not(.ocupado)", function(){
     $(this).toggleClass('seleccionado')
 })
-$(document).on("click", "#btnInfoPelicula", function(){
+$(document).on("click", ".btnInfoPelicula", function(){
     $.ajax({
         data : {
-            //"nombrePelicula": $(this).parent().find('p').eq(0).text()
+            "nombrePelicula": $(this).parent().find('span').text()
         },
         url: 'data/BD_Manager.php',
         type: 'POST',
         success: function(datosRecogidos){
-            $('#infoPelicula').text(datosRecogidos)
-            /*
-            let datosJSON = JSON.parse(datosRecogidos)
-
-            $('#nombre').text(datosJSON.nombre)
-            $('#dni').text(datosJSON.dni)
-            $('#telefono').text(datosJSON.telefono)
-            */
+            infoPelicula(JSON.parse(datosRecogidos))
+            //$('#infoPelicula').text(datosJSON.nombre)
         }
     })
 })
@@ -68,7 +62,9 @@ $(document).on("click", '.btnEliminar', function(){
     borrar($(this).parent().parent())
 })
 
-//Funcion - Acerca De
+
+//FUNCIONES
+//Funciones - Acerca De
 function mostrarDatosCine(datosJson){
     $('#contenidoWeb').html('<div id="datosCine" class="mt-4 mb-4"></div>')
     let html = '<h2 class="text-center mb-3">Acerca De</h2><table id="tablaDatosCine">'
@@ -103,6 +99,19 @@ function seleccionarPelicula(index){
             allPelis.eq(i).css('background-color', 'white')
         }
     }
+}
+
+function infoPelicula(datosJson){
+    let html = '<div class="col-6">\
+    <img src="./img/'+datosJson.nombreImagen+'" alt="imagen" class="img-fluid w-75"></div>\
+    <table class="col-6">\
+    <tr><th>Duración</th></tr>\
+    <tr><td>'+datosJson.duracion+'&nbsp;minutos</td></tr>\
+    <tr><th>Descripción</th></tr>\
+    <tr><td>'+datosJson.descripcion+'</td></tr></table>'
+
+    $('#tituloModalPelicula').text(datosJson.nombre)
+    $('#infoPelicula .row').html(html)
 }
 
 function reservarPelicula(){
@@ -179,7 +188,6 @@ function borrar(fila){
     }
 }
 
-//Funciones del Examen
 function tituloDePeliculaHtml(peliculaSeleccionada) {
     return "<div class='row'>\
     <div class='bg-secondary text-center text-white cabecera'>\
@@ -199,11 +207,13 @@ function filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada) {
     </div></div>"
     return filaHtml
 }
+
 function filaPeliculaHtml(indice, nombre, minutos) {
     let filaHtml = "<div class='fila mt-3 d-flex justify-content-between align-items-center'>\
     <div class='col-9 ps-2'>\
-    <p class='fw-bold mb-0 fs-5'>" + nombre 
-    + "<button class='btn btn-primary' id='btnInfoPelicula'>i</button></p>\
+    <p class='fw-bold mb-0 fs-5'><span>" + nombre +"</span>&nbsp;\
+    <button class='btn btn-primary rounded-circle btnInfoPelicula' \
+    data-bs-toggle='modal' data-bs-target='#modalPelicula'>i</button></p>\
     <span class='text-muted'>" + minutos + " minutos</span>\
     </div>\
     <div class='col-3'>\
