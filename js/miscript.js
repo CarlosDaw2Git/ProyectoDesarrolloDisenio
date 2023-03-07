@@ -38,6 +38,7 @@ $(document).ready(function(){
         })
     })
 })
+
 //Carga - Reserva
 $(document).on("click", ".asiento:not(.ocupado)", function(){
     $(this).toggleClass('seleccionado')
@@ -51,7 +52,6 @@ $(document).on("click", ".btnInfoPelicula", function(){
         type: 'POST',
         success: function(datosRecogidos){
             infoPelicula(JSON.parse(datosRecogidos))
-            //$('#infoPelicula').text(datosJSON.nombre)
         }
     })
 })
@@ -188,6 +188,7 @@ function borrar(fila){
     }
 }
 
+//Desc:Una fila de la reserva con el nombre y el numero de asientos
 function tituloDePeliculaHtml(peliculaSeleccionada) {
     return "<div class='row'>\
     <div class='bg-secondary text-center text-white cabecera'>\
@@ -195,7 +196,7 @@ function tituloDePeliculaHtml(peliculaSeleccionada) {
         <p>1 asiento ocupado</p>\
     </div>"
 }
-
+//Desc:Una fila de x película con el nombre, butaca, etc
 function filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada) {
     let filaHtml = "<div class='row'><div class='col-8 offset-1 border-bottom border-dark border-2 mt-2'>\
     <p>" + nombre + "</p>\
@@ -207,13 +208,13 @@ function filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada) {
     </div></div>"
     return filaHtml
 }
-
+//Desc:Filas para la selección de la pelicula ANTES de hacer la reserva
 function filaPeliculaHtml(indice, nombre, minutos) {
     let filaHtml = "<div class='fila mt-3 d-flex justify-content-between align-items-center'>\
     <div class='col-9 ps-2'>\
     <p class='fw-bold mb-0 fs-5'><span>" + nombre +"</span>&nbsp;\
-    <button class='btn btn-primary rounded-circle btnInfoPelicula' \
-    data-bs-toggle='modal' data-bs-target='#modalPelicula'>i</button></p>\
+    <button class='btn btn-secondary rounded-circle btnInfoPelicula' \
+    data-bs-toggle='modal' data-bs-target='#modalPelicula'>&nbsp;i&nbsp;</button></p>\
     <span class='text-muted'>" + minutos + " minutos</span>\
     </div>\
     <div class='col-3'>\
