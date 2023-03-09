@@ -27,13 +27,24 @@ $(document).ready(function(){
     })
 
     $('#botonReserva').click(function(){
+        //Mostrar formulario de las reservas
         $.ajax({
             type: 'GET',
             url: 'reserva.html',
             data: {},
             success: function(data){
                 $('#contenidoWeb').html(data)
-                mostrarReserva()
+            }
+        })
+        //Recoger datos de todas las películas
+        $.ajax({
+            data : {
+                'getAllPeliculas' : 'true'
+            },
+            url: 'data/BD_Manager.php',
+            type: 'POST',
+            success: function(datosRecogidos){
+                mostrarReserva(JSON.parse(datosRecogidos))
             }
         })
     })
@@ -42,6 +53,9 @@ $(document).ready(function(){
 //Carga - Reserva
 $(document).on("click", ".asiento:not(.ocupado)", function(){
     $(this).toggleClass('seleccionado')
+})
+$(document).on("click", ".seleccionarPelicula",function(){
+    
 })
 $(document).on("click", ".btnInfoPelicula", function(){
     $.ajax({
@@ -81,11 +95,10 @@ function mostrarDatosCine(datosJson){
 }
 
 //Funciones - Reserva
-function mostrarReserva(){
-    for(let index in listadoPeliculas){
-        let pelicula = listadoPeliculas[index].split(";")
-        $('.peliculas').append(filaPeliculaHtml(index, pelicula[0], pelicula[1]))
-    }
+function mostrarReserva(datosJson){
+    datosJson.forEach(element => {
+        $('.peliculas').append(filaPeliculaHtml(element.titulo, element.duracion))
+    });
 }
 
 function seleccionarPelicula(index){
@@ -209,16 +222,18 @@ function filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada) {
     return filaHtml
 }
 //Desc:Filas para la selección de la pelicula ANTES de hacer la reserva
-function filaPeliculaHtml(indice, nombre, minutos) {
-    let filaHtml = "<div class='fila mt-3 d-flex justify-content-between align-items-center'>\
-    <div class='col-9 ps-2'>\
-    <p class='fw-bold mb-0 fs-5'><span>" + nombre +"</span>&nbsp;\
-    <button class='btn btn-secondary rounded-circle btnInfoPelicula' \
-    data-bs-toggle='modal' data-bs-target='#modalPelicula'>&nbsp;i&nbsp;</button></p>\
-    <span class='text-muted'>" + minutos + " minutos</span>\
-    </div>\
-    <div class='col-3'>\
-    <button onclick='seleccionarPelicula(" + indice + ")' class='btn btn-warning'>Seleccionar</button>\
-    </div></div>"
+function filaPeliculaHtml(nombre, minutos) {
+    let filaHtml =
+    "<div class='fila mt-3 d-flex justify-content-between align-items-center'>\
+        <div class='col-9 ps-2'>\
+            <p class='fw-bold mb-0 fs-5'><span>" + nombre +"</span>&nbsp;\
+            <button class='btn btn-secondary rounded-circle btnInfoPelicula' \
+            data-bs-toggle='modal' data-bs-target='#modalPelicula'>&nbsp;i&nbsp;</button></p>\
+            <span class='text-muted'>" + minutos + " minutos</span>\
+        </div>\
+        <div class='col-3'>\
+            <button class='btn btn-warning seleccionarPelicula'>Seleccionar</button>\
+        </div>\
+    </div>"
     return filaHtml
 }
