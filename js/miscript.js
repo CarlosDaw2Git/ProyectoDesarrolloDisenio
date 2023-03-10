@@ -4,6 +4,9 @@ let butacasOcupadas = []
 //CARGA DEL ARCHIVO
 //Carga - Index
 $(document).ready(function(){
+    $('#linkInicio').click(function(){
+        $('#contenidoWeb').html("")
+    })
     $('#linkUbicacion').click(function(){
         $.ajax({
             type: 'GET',
