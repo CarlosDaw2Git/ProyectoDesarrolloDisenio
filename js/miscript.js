@@ -1,4 +1,4 @@
-let listadoPeliculas = ["Avatar 2: El camino del agua;192", "Babylon;189", "Los renglones torcidos de Dios;154"]
+//let listadoPeliculas = ["Avatar 2: El camino del agua;192", "Babylon;189", "Los renglones torcidos de Dios;154"]
 let butacasOcupadas = []
 
 //CARGA DEL ARCHIVO
@@ -55,7 +55,7 @@ $(document).on("click", ".asiento:not(.ocupado)", function(){
     $(this).toggleClass('seleccionado')
 })
 $(document).on("click", ".seleccionarPelicula",function(){
-    
+    seleccionarPelicula($(this).parent().parent())
 })
 $(document).on("click", ".btnInfoPelicula", function(){
     $.ajax({
@@ -101,17 +101,19 @@ function mostrarReserva(datosJson){
     });
 }
 
-function seleccionarPelicula(index){
-    allPelis = $('.peliculas .fila')
-    for(let i in allPelis){
-        if (i == index){
-            allPelis.eq(i).css('background-color', 'lightgray')
-            $('#peliculaSeleccionada').text(listadoPeliculas[i].split(";")[0])
+function seleccionarPelicula(fila){
+    let tituloBuscado = fila.find('.tituloPelicula').text()
+    let allFilas = $('.peliculas .fila')
+    allFilas.each(function(){
+        let tituloActual = $(this).find('.tituloPelicula').text()
+        if (tituloBuscado == tituloActual){
+            $(this).css('background-color', 'lightgray')
+            $('#peliculaSeleccionada').text(tituloActual)
         }
         else{
-            allPelis.eq(i).css('background-color', 'white')
+            $(this).css('background-color', 'rgba(0, 0, 0, 0)')
         }
-    }
+    })
 }
 
 function infoPelicula(datosJson){
@@ -186,9 +188,9 @@ function borrar(fila){
     let filaAsiento = fila.find('p').eq(1).text().split(" ")[1]
     let butacaAsiento = fila.find('p').eq(2).text().split(" ")[1]
 
-    if(elementoPadre.find('.row').length < 1){
+    if(elementoPadre.find('.row').length < 2){
         elementoPadre.remove()
-        butacasOcupadas[nombrePelicula] == undefined
+        delete butacasOcupadas[nombrePelicula]
     }
     else{
         fila.remove()
@@ -226,7 +228,7 @@ function filaPeliculaHtml(nombre, minutos) {
     let filaHtml =
     "<div class='fila mt-3 d-flex justify-content-between align-items-center'>\
         <div class='col-9 ps-2'>\
-            <p class='fw-bold mb-0 fs-5'><span>" + nombre +"</span>&nbsp;\
+            <p class='fw-bold mb-0 fs-5'><span class='tituloPelicula'>" + nombre +"</span>&nbsp;\
             <button class='btn btn-secondary rounded-circle btnInfoPelicula' \
             data-bs-toggle='modal' data-bs-target='#modalPelicula'>&nbsp;i&nbsp;</button></p>\
             <span class='text-muted'>" + minutos + " minutos</span>\
