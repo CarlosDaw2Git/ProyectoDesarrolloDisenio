@@ -7,6 +7,7 @@ $(document).ready(function(){
     $('#linkInicio').click(function(){
         $('#contenidoWeb').html("")
     })
+    
     $('#linkUbicacion').click(function(){
         $.ajax({
             type: 'GET',
@@ -27,6 +28,10 @@ $(document).ready(function(){
                 console.log("Error al mostrar la información")
             }
         })
+    })
+
+    $('#linkRegistro').click(function(){
+        alert(comprobarCookie("PHPSESSID"))
     })
 
     $('#botonReserva').click(function(){
@@ -57,9 +62,11 @@ $(document).ready(function(){
 $(document).on("click", ".asiento:not(.ocupado)", function(){
     $(this).toggleClass('seleccionado')
 })
+
 $(document).on("click", ".seleccionarPelicula",function(){
     seleccionarPelicula($(this).parent().parent())
 })
+
 $(document).on("click", ".btnInfoPelicula", function(){
     $.ajax({
         data : {
@@ -72,15 +79,28 @@ $(document).on("click", ".btnInfoPelicula", function(){
         }
     })
 })
+
 $(document).on("click", "#reservarAsiento", function(){
     reservarPelicula()
 })
+
 $(document).on("click", '.btnEliminar', function(){
     borrar($(this).parent().parent())
 })
 
 
 //FUNCIONES
+//Funciones - Index
+function comprobarCookie(nombreCookie){
+    let cookieArray = document.cookie.split(";")
+    cookieArray.forEach(cookie => {
+        arrayDatos = cookie.split("=")
+        if(nombreCookie == arrayDatos[0]){
+            return true
+        }
+    });
+    return false
+}
 //Funciones - Acerca De
 function mostrarDatosCine(datosJson){
     $('#contenidoWeb').html('<div id="datosCine" class="mt-4 mb-4"></div>')
@@ -203,29 +223,10 @@ function borrar(fila){
                 butacasOcupadas[nombrePelicula].splice(index)
             }
         }
+        elementoPadre.find('.cabecera p').text((elementoPadre.find('.row').length)+' asientos ocupados')
     }
 }
 
-//Desc:Una fila de la reserva con el nombre y el numero de asientos
-function tituloDePeliculaHtml(peliculaSeleccionada) {
-    return "<div class='row'>\
-    <div class='bg-secondary text-center text-white cabecera'>\
-        <h3>" + peliculaSeleccionada + "</h3>\
-        <p>1 asiento ocupado</p>\
-    </div>"
-}
-//Desc:Una fila de x película con el nombre, butaca, etc
-function filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada) {
-    let filaHtml = "<div class='row'><div class='col-8 offset-1 border-bottom border-dark border-2 mt-2'>\
-    <p>" + nombre + "</p>\
-    <p>Fila: " + fila + "</p>\
-    <p>Butaca: " + butaca + "</p>\
-    </div>\
-    <div class='col-2 d-flex align-items-center border-bottom border-dark border-2'>\
-    <button class='btn btnEliminar'><i class='bi bi-trash-fill'></i></button>\
-    </div></div>"
-    return filaHtml
-}
 //Desc:Filas para la selección de la pelicula ANTES de hacer la reserva
 function filaPeliculaHtml(nombre, minutos) {
     let filaHtml =
@@ -240,5 +241,27 @@ function filaPeliculaHtml(nombre, minutos) {
             <button class='btn btn-warning seleccionarPelicula'>Seleccionar</button>\
         </div>\
     </div>"
+    return filaHtml
+}
+
+//Desc:Una fila de la reserva con el nombre y el numero de asientos
+function tituloDePeliculaHtml(peliculaSeleccionada) {
+    return "<div class='row'>\
+    <div class='bg-secondary text-center text-white cabecera'>\
+        <h3>" + peliculaSeleccionada + "</h3>\
+        <p>1 asiento ocupado</p>\
+    </div>"
+}
+
+//Desc:Una fila de x película con el nombre, butaca, etc
+function filaReservaHtml(nombre, fila, butaca) {
+    let filaHtml = "<div class='row'><div class='col-8 offset-1 border-bottom border-dark border-2 mt-2'>\
+    <p>" + nombre + "</p>\
+    <p>Fila: " + fila + "</p>\
+    <p>Butaca: " + butaca + "</p>\
+    </div>\
+    <div class='col-2 d-flex align-items-center border-bottom border-dark border-2'>\
+    <button class='btn btnEliminar'><i class='bi bi-trash-fill'></i></button>\
+    </div></div>"
     return filaHtml
 }
