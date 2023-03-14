@@ -18,18 +18,6 @@ class BD_Cine{
     //SELECTS
     //SELECT ALL PELICULAS
     public static function getAllPeliculas(){
-        /*
-        $sql="SELECT * FROM peliculas";
-        $conexion=self::realizarConexion();
-		$resultado=$conexion->query($sql);
-	    $peliculas=array();
-        while ($fila=$resultado->fetch()){
-            array_push($peliculas, new Pelicula($fila));
-        }
-        $resultado->closeCursor();
-		$conexion=null;
-		return ($peliculas);
-        */
         $arrayPeliculas = [];
         try{
             $sql="SELECT * FROM peliculas";
@@ -73,26 +61,27 @@ class BD_Cine{
         }
     }
 
-    //SELECT USUARIO POR NOMBRE
-    public static function getUserByNombre($nombre){
+    //VERIFICAR USUARIO
+    public static function verificarUsuario($nombre, $clave){
+        $correcto = false;
         try{
-            $sql = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
+            $sql = "SELECT * FROM usuarios WHERE nombreUsuario = ?
+            AND claveUsuario = md5(?)";
             $conexion = self::realizarConexion();
             $resultado = $conexion->prepare($sql);
-            $resultado->execute(array($nombre));
+            $resultado->execute(array($nombre, $clave));
             $fila = $resultado->fetch();
             $resultado->closeCursor();
             $conexion = null;
-            if(empty($fila)){
-                return null;
-            }
-            else{
-                return new Usuario($fila);
+            if(!empty($fila)){
+                $correcto = true;
             }
         }
         catch(PDOException $e){
-            echo "<script>alert('Error en getUserByNombre(): ".$e->getMessage()."')</script>";
-            return null;
+            echo "<script>alert('Error en verificarUsuario(): ".$e->getMessage()."')</script>";
+        }
+        finally{
+            return $correcto;
         }
     }
 }

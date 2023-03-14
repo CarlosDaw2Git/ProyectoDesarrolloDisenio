@@ -19,13 +19,16 @@
         </div>
     </nav>
     <div class="container mt-5 mb-5 d-flex justify-content-center" id="divContenido">
-        <div id="formLogin" class="d-flex flex-column bg-light p-5 rounded-5">
+        <div id="form" class="d-flex flex-column bg-light p-5 rounded-5 shadow">
+            <h4 class="h4 text-danger text-center">Login</h4>
             <label for="nombreLogin">Nombre de usuario</label>
             <input type="text" name="nombreLogin" id="nombreLogin" class="mb-2">
             <label for="claveLogin">Contraseña</label>
-            <input type="text" name="claveLogin" id="claveLogin" class="mb-2">
+            <input type="password" name="claveLogin" id="claveLogin" class="mb-2">
+            <span id="errorReserva"></span>
+            <button id="verificar" class="btn btn-outline-danger mb-2 mt-2">Verificar</button>
             <span  class="mb-1">¿Aún no tienes una cuenta?&nbsp;</span>
-            <button id="registrarse" class="btn btn-danger">Registrate</button>
+            <button id="registrarse" class="btn btn-outline-danger">Registrate</button>
         </div>
     </div>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
