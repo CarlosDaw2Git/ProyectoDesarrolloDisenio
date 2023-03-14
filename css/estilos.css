@@ -10777,6 +10777,21 @@ textarea.form-control-lg {
   height: 220pt;
 }
 
+#iconoPerfil {
+  background-color: red;
+  color: white;
+  font-size: x-small;
+  width: 12pt;
+  height: 12pt;
+  border-radius: 50%;
+  position: absolute;
+  top: 10pt;
+  right: 3pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*-Acerca de*/
 #tablaDatosCine {
   margin: 0 auto;

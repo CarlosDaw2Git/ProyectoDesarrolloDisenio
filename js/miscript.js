@@ -13,8 +13,8 @@ $(document).ready(function(){
             type: 'GET',
             url: 'mapa.html',
             data: {},
-            success: function(data){
-                $('#contenidoWeb').html(data)
+            success: function(datosRecogidos){
+                $('#contenidoWeb').html(datosRecogidos)
             }
         })
     })
@@ -30,9 +30,27 @@ $(document).ready(function(){
         })
     })
 
-    $('#linkRegistro').click(function(){
-        alert(comprobarCookie("PHPSESSID"))
-    })
+    //Botón de login:
+    //document.cookie = "prueba=true;"
+    if(comprobarCookie("usuario")){
+        $('#linkRegistro').append('<div id="iconoPerfil">2</div>')
+        $('#linkRegistro').click(function(){
+            $.ajax({
+                type: 'GET',
+                url: 'perfil.html',
+                data: {},
+                success: function(datosRecogidos){
+                    $('#contenidoWeb').html(datosRecogidos)
+                }
+            })
+        })
+    }
+    else{
+        $('#linkRegistro').click(function(){
+            window.location = "login.html"
+        })
+    }
+    
 
     $('#botonReserva').click(function(){
         //Mostrar formulario de las reservas
@@ -40,8 +58,8 @@ $(document).ready(function(){
             type: 'GET',
             url: 'reserva.html',
             data: {},
-            success: function(data){
-                $('#contenidoWeb').html(data)
+            success: function(datosRecogidos){
+                $('#contenidoWeb').html(datosRecogidos)
             }
         })
         //Recoger datos de todas las películas
@@ -92,13 +110,14 @@ $(document).on("click", '.btnEliminar', function(){
 //FUNCIONES
 //Funciones - Index
 function comprobarCookie(nombreCookie){
-    let cookieArray = document.cookie.split(";")
-    cookieArray.forEach(cookie => {
-        arrayDatos = cookie.split("=")
-        if(nombreCookie == arrayDatos[0]){
+    arrCookies = document.cookie.split("; ")
+    for (let i = 0; i < arrCookies.length; i++) {
+        cookie = arrCookies[i].split("=")
+        if(nombreCookie == cookie[0]){
             return true
         }
-    });
+        
+    }
     return false
 }
 //Funciones - Acerca De
