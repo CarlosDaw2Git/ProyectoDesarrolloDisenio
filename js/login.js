@@ -21,19 +21,22 @@ $(document).on("click", "#volver",function(){
 })
 
 $(document).on("click", "#crearUsuario",function(){
-    crearUsuario()
+    let nombre = $('#nombreRegistro').val()
+    let clave = $('#claveRegistro').val()
+    let repiteClave = $('#repiteClaveRegistro').val()
+    crearUsuario(nombre, clave, repiteClave)
 })
 
 function verificarUsuario(nombre, clave){
     if(nombre == ""){
         $('#errorReserva').text(
-            "El nombre no puede estar vacío"
+            "El Campo \"Nombre\" no puede estar vacío"
         )
         return null
     }
     if(clave == ""){
         $('#errorReserva').text(
-            "La contraseña no puede estar vacía"
+            "El campo \"Contraseña\" no puede estar vacía"
         )
         return null
     }
@@ -46,15 +49,46 @@ function verificarUsuario(nombre, clave){
         url: 'data/BD_Manager.php',
         type: 'POST',
         success: function(datosRecogidos){
-            //$('#errorReserva').html(datosRecogidos)
+            let datosJson = JSON.parse(datosRecogidos)
+            if(datosJson.error != null){
+                $('#errorReserva').html(datosJson.error)
+            }
+            else if(datosJson.admin == true){
+                //window.location = "./administrador.html"
+            }
+            else{
+                document.cookie = "usuario="+nombre+";max-age=999999999;"
+                window.location = "./index.html"
+            }
         }
     })
 }
 
-function crearUsuario(){
+function crearUsuario(nombre, clave, repiteClave){
+    if(nombre == ""){
+        $('#errorReserva').text(
+            "El Campo \"Nombre\" no puede estar vacío"
+        )
+        return null
+    }
+    if(clave == ""){
+        $('#errorReserva').text(
+            "El campo \"Contraseña\" no puede estar vacía"
+        )
+        return null
+    }
+    if(clave != repiteClave){
+        $('#errorReserva').text(
+            "Las contraseñas no cohinciden"
+        )
+        return null
+    }
+    
     $.ajax({
         data : {
-            'crearUsuario' : 'true'
+            'crearUsuario' : 'true',
+            'nombre': nombre,
+            'clave': clave
         },
         url: 'data/BD_Manager.php',
         type: 'POST',

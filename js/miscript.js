@@ -1,4 +1,3 @@
-//let listadoPeliculas = ["Avatar 2: El camino del agua;192", "Babylon;189", "Los renglones torcidos de Dios;154"]
 let butacasOcupadas = []
 
 //CARGA DEL ARCHIVO
@@ -36,11 +35,15 @@ $(document).ready(function(){
         $('#linkRegistro').append('<div id="iconoPerfil">2</div>')
         $('#linkRegistro').click(function(){
             $.ajax({
-                type: 'GET',
-                url: 'perfil.html',
-                data: {},
+                data : {
+                    'verPerfil' : 'true',
+                    'nombre': getValorCookie('usuario')
+                },
+                url: 'data/BD_Manager.php',
+                type: 'POST',
                 success: function(datosRecogidos){
-                    $('#contenidoWeb').html(datosRecogidos)
+                    //console.log(datosRecogidos)
+                    mostrarPerfil(JSON.parse(datosRecogidos))
                 }
             })
         })
@@ -106,6 +109,11 @@ $(document).on("click", '.btnEliminar', function(){
     borrar($(this).parent().parent())
 })
 
+//Carga - Perfil
+$(document).on("click", '#cerrarSesion', function(){
+    document.cookie = "usuario=;max-age=0;"
+    window.location.reload()
+})
 
 //FUNCIONES
 //Funciones - Index
@@ -120,6 +128,19 @@ function comprobarCookie(nombreCookie){
     }
     return false
 }
+
+function getValorCookie(nombreCookie){
+    arrCookies = document.cookie.split("; ")
+    for (let i = 0; i < arrCookies.length; i++) {
+        cookie = arrCookies[i].split("=")
+        if(nombreCookie == cookie[0]){
+            return cookie[1]
+        }
+        
+    }
+    return null
+}
+
 //Funciones - Acerca De
 function mostrarDatosCine(datosJson){
     $('#contenidoWeb').html('<div id="datosCine" class="mt-4 mb-4"></div>')
@@ -134,6 +155,35 @@ function mostrarDatosCine(datosJson){
     }
     html += '</tr></table>'
     $('#datosCine').append(html)
+}
+
+//Funciones - Mostrar perfil
+function mostrarPerfil(datosJson){
+    if(datosJson.error != undefined){
+        $('#contenidoWeb').html("<div id='errorReserva'>"+datosJson.error+"</div>")
+    }
+    else{
+        let html = '\
+        <h2 class="mb-2 text-center">Mi perfil</h2>\
+        <div class="container-fluid d-flex flex-column align-items-center">\
+            <table id="tablaPerfil">\
+                <tr>\
+                    <td>Nombre:</td>\
+                    <td>'+datosJson.nombre+'</td>\
+                </tr>\
+                <tr>\
+                    <td>Contraseña:</td>\
+                    <td>'+datosJson.clave+'</td>\
+                </tr>\
+                <tr>\
+                    <td>¿Es administrador?</td>\
+                    <td>'+datosJson.admin+'</td>\
+                </tr>\
+            </table>\
+            <button class="btn btn-danger mt-3" id="cerrarSesion">Cerrar sesión</button>\
+        </div>'
+        $('#contenidoWeb').html(html)
+    }
 }
 
 //Funciones - Reserva

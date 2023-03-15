@@ -1,8 +1,6 @@
 <?php
 require("BD_Cine.php");
 
-$bd = new BD_Cine();
-
 //Selección de peliculas para el modal
 if(isset($_REQUEST['nombrePelicula']) && !empty($_REQUEST['nombrePelicula'])){
     $pelicula = BD_Cine::getPeliculaByNombre($_REQUEST['nombrePelicula']);
@@ -26,18 +24,40 @@ if(isset($_REQUEST['getAllPeliculas'])){
 
 //Verificar usuario en el login
 if(isset($_REQUEST['verificarUsuario'])){
-    /*
-    echo "Voy a verificar el usuario<br>";
-    echo($_REQUEST['nombre']."<br>");
-    echo($_REQUEST['clave']);
-    */
-    $datos;
     $nombre = $_REQUEST['nombre'];
     $clave = $_REQUEST['clave'];
-    $correcto = BD_Cine::verificarUsuario($nombre, $clave);
+    $usuario = BD_Cine::verificarUsuario($nombre, $clave);
+    if(empty($usuario)){
+        echo json_encode(array(
+            "error" => "Datos incorrectos"
+        ));
+    }
+    else{
+        echo json_encode($usuario->getArray());
+    }
 }
 //Crear usuario en el login
 if(isset($_REQUEST['crearUsuario'])){
-    echo "Voy a crear el usuario";
+    $nombre = $_REQUEST['nombre'];
+    $clave = $_REQUEST['clave'];
+    if(BD_Cine::insertUsuario($nombre, $clave)){
+        echo "Usuario registrado correctamente";
+    }
+    else{
+        echo "Error";
+    }
+}
+
+if(isset($_REQUEST['verPerfil'])){
+    $nombre = $_REQUEST['nombre'];
+    $usuario = BD_Cine::getUserByNombre($nombre);
+    if(empty($usuario)){
+        echo json_encode(array(
+            "error" => "Datos incorrectos"
+        ));
+    }
+    else{
+        echo json_encode($usuario->getArray());
+    }
 }
 ?>

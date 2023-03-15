@@ -63,7 +63,7 @@ class BD_Cine{
 
     //VERIFICAR USUARIO
     public static function verificarUsuario($nombre, $clave){
-        $correcto = false;
+        $usuario = null;
         try{
             $sql = "SELECT * FROM usuarios WHERE nombreUsuario = ?
             AND claveUsuario = md5(?)";
@@ -74,16 +74,59 @@ class BD_Cine{
             $resultado->closeCursor();
             $conexion = null;
             if(!empty($fila)){
-                $correcto = true;
+                $usuario = new Usuario($fila);
             }
         }
         catch(PDOException $e){
             echo "<script>alert('Error en verificarUsuario(): ".$e->getMessage()."')</script>";
         }
         finally{
-            return $correcto;
+            return $usuario;
+        }
+    }
+
+    //SELECT USER BY NAME
+    public static function getUserByNombre($nombre){
+        $usuario = null;
+        try{
+            $sql = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
+            $conexion = self::realizarConexion();
+            $resultado = $conexion->prepare($sql);
+            $resultado->execute(array($nombre));
+            $fila = $resultado->fetch();
+            $resultado->closeCursor();
+            $conexion = null;
+            if(!empty($fila)){
+                $usuario = new Usuario($fila);
+            }
+        }
+        catch(PDOException $e){
+            echo "<script>alert('Error en getUsuarioByNombre(): ".$e->getMessage()."')</script>";
+        }
+        finally{
+            return $usuario;
+        }
+    }
+    //INSERTS
+    //INSERTAR NUEVO USUARIO
+    public static function insertUsuario($nombre, $clave){
+        try{
+            $sql = "INSERT INTO usuarios(nombreUsuario, claveUsuario, 
+            administrador) VALUES(?, md5(?), 0)";
+            $conexion = self::realizarConexion();
+            $resultado =  $conexion->prepare($sql);
+            $afectados = $resultado->execute(array($nombre, $clave));
+            if ($afectados > 0){
+                $exito= true;
+            }
+        }
+        catch(PDOException $e){
+            echo "<script>alert('Error en insertar_comida(): ".$e->getMessage()."')</script>";
+        }
+        finally{
+            $resultado->closeCursor();
+            $conexion = null;
+            return $exito;
         }
     }
 }
-
-?>
