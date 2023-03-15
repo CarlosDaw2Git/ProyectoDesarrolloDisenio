@@ -1,6 +1,7 @@
+$.getScript("./js/cookies.js")
+
 $(document).ready(function(){
     $('#verificar').click(function(){
-
         verificarUsuario($('#nombreLogin').val(), $('#claveLogin').val())
     })
 
@@ -54,7 +55,8 @@ function verificarUsuario(nombre, clave){
                 $('#errorReserva').html(datosJson.error)
             }
             else if(datosJson.admin == true){
-                //window.location = "./administrador.html"
+                document.cookie = "admin=true;max-age=999999999;"
+                window.location = "./administrador.html"
             }
             else{
                 document.cookie = "usuario="+nombre+";max-age=999999999;"

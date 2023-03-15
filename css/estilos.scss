@@ -1,3 +1,42 @@
+//Variables de colores
+$blue:    #0d6efd;
+$red:     #dc3545;
+$yellow:  #ffc107;
+$green:   #198754;
+$cyan:    #0dcaf0;
+
+//Escala de grises
+$gray-100: #f8f9fa;
+$gray-600: #6c757d;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+
+//Variables generales
+$primary:       $blue;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-100;
+$gray:          $gray-800;
+$dark:          $gray-900;
+
+//Variable que contiene todos los colores
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "gray":       $gray,
+  "dark":       $dark
+);
+
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
 

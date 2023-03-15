@@ -30,7 +30,6 @@ $(document).ready(function(){
     })
 
     //Botón de login:
-    //document.cookie = "prueba=true;"
     if(comprobarCookie("usuario")){
         $('#linkRegistro').append('<div id="iconoPerfil">2</div>')
         $('#linkRegistro').click(function(){
@@ -116,31 +115,6 @@ $(document).on("click", '#cerrarSesion', function(){
 })
 
 //FUNCIONES
-//Funciones - Index
-function comprobarCookie(nombreCookie){
-    arrCookies = document.cookie.split("; ")
-    for (let i = 0; i < arrCookies.length; i++) {
-        cookie = arrCookies[i].split("=")
-        if(nombreCookie == cookie[0]){
-            return true
-        }
-        
-    }
-    return false
-}
-
-function getValorCookie(nombreCookie){
-    arrCookies = document.cookie.split("; ")
-    for (let i = 0; i < arrCookies.length; i++) {
-        cookie = arrCookies[i].split("=")
-        if(nombreCookie == cookie[0]){
-            return cookie[1]
-        }
-        
-    }
-    return null
-}
-
 //Funciones - Acerca De
 function mostrarDatosCine(datosJson){
     $('#contenidoWeb').html('<div id="datosCine" class="mt-4 mb-4"></div>')
