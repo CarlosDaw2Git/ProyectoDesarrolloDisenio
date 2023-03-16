@@ -1,9 +1,3 @@
--Index - Grafico
-    +NUEVA SECCIÓN
-    +Crear un JSON con los datos del grafico para enviarlo
-    +Utilizar los paquetes que dijo Miguel Angel para recuperar
-    el grafico en si y mostrarlo en el index
-
 -Index
     +Funcionalidad a algunos botones:
         *Cartelera = getAllPeliculas

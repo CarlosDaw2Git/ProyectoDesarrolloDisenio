@@ -18,6 +18,17 @@ $(document).ready(function(){
         })
     })
 
+    $('#linkEntradasVendidas').click(function(){
+        $.ajax({
+            url: './data/datosVentas.json',
+            dataType: 'json',
+            success: mostrarGraficoEntradas,
+            error: function(){
+                console.log("Error al mostrar la información")
+            }
+        })
+    })
+
     $('#linkAcercaDe').click(function(){
         $.ajax({
             url: './data/datosCine.json',
@@ -157,6 +168,15 @@ function mostrarPerfil(datosJson){
         </div>'
         $('#contenidoWeb').html(html)
     }
+}
+
+//Funciones - Grafico entradas vendidas
+function mostrarGraficoEntradas(datosJson){
+    $('#contenidoWeb').html('<h2 class="text-center">Entradas vendidas</h2>\
+    <div class="container">\
+        <canvas id="graficoVendidas"></canvas>\
+    </div>')
+    new Chart($('#graficoVendidas'), datosJson)
 }
 
 //Funciones - Reserva

@@ -1,0 +1,22 @@
+{
+    "type": "bar",
+    "data": {
+        "labels": [
+            "Avatar 2 : El Camino del Agua",
+            "Babylon",
+            "Los Renglones Torcidos de Dios"
+        ],
+        "datasets": [{
+            "label": "Entradas vendidas",
+            "data": [35, 16, 23],
+            "borderWidth": 1
+        }]
+    },
+    "options":{
+        "scales": {
+            "y": {
+                "beginAtZero": true
+            }
+        }
+    }
+}
