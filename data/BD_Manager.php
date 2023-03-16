@@ -48,6 +48,7 @@ if(isset($_REQUEST['crearUsuario'])){
     }
 }
 
+//Ver perfil del usuario
 if(isset($_REQUEST['verPerfil'])){
     $nombre = $_REQUEST['nombre'];
     $usuario = BD_Cine::getUserByNombre($nombre);
@@ -58,6 +59,38 @@ if(isset($_REQUEST['verPerfil'])){
     }
     else{
         echo json_encode($usuario->getArray());
+    }
+}
+
+//Recibir datos de las salas
+if(isset($_REQUEST['verSalas'])){
+    $salas = BD_Cine::getAllSalas();
+    $arrayDatos = [];
+    foreach ($salas as $key => $sala) {
+        $datosSala = $sala->getArray();
+        $arrayDatos[$key] = $datosSala;
+    }
+    echo json_encode($arrayDatos);
+}
+
+//Actualizar una sala
+if(isset($_REQUEST['updateSala'])){
+    $idSala = $_REQUEST['idSala'];
+    $numFilas = $_REQUEST['numFilas'];
+    $numButacas = $_REQUEST['numButacas'];
+    
+    $exito = BD_Cine::updateSala($idSala, $numFilas, $numButacas);
+    if(!$exito){
+        echo json_encode(array(
+            "success" => false,
+            "error" => "Vaya, parece que algo ha ido mal"
+        ));
+    }
+    else{
+        echo json_encode(array(
+            "success" => true,
+            "error" => null
+        ));
     }
 }
 ?>

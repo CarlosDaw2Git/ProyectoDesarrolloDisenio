@@ -1,5 +1,3 @@
-$.getScript("./js/cookies.js")
-
 $(document).ready(function(){
     $('#verificar').click(function(){
         verificarUsuario($('#nombreLogin').val(), $('#claveLogin').val())
@@ -30,13 +28,13 @@ $(document).on("click", "#crearUsuario",function(){
 
 function verificarUsuario(nombre, clave){
     if(nombre == ""){
-        $('#errorReserva').text(
+        $('#errorUpdate').text(
             "El Campo \"Nombre\" no puede estar vacío"
         )
         return null
     }
     if(clave == ""){
-        $('#errorReserva').text(
+        $('#errorUpdate').text(
             "El campo \"Contraseña\" no puede estar vacía"
         )
         return null
@@ -56,7 +54,7 @@ function verificarUsuario(nombre, clave){
             }
             else if(datosJson.admin == true){
                 document.cookie = "admin=true;max-age=999999999;"
-                window.location = "./administrador.html"
+                window.location = "./admin.html"
             }
             else{
                 document.cookie = "usuario="+nombre+";max-age=999999999;"

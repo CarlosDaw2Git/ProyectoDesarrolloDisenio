@@ -1,6 +1,7 @@
 <?php
 include("T_Peliculas.php");
 include("T_Usuarios.php");
+include("T_Salas.php");
 
 class BD_Cine{
     public static function realizarConexion()
@@ -35,6 +36,28 @@ class BD_Cine{
             $resultado->closeCursor();
             $conexion = null;
             return $arrayPeliculas;
+        }
+    }
+
+    //SELECT ALL SALAS
+    public static function getAllSalas(){
+        $arraySalas = [];
+        try{
+            $sql="SELECT * FROM salas";
+            $conexion = self::realizarConexion();
+            $resultado =  $conexion->prepare($sql);
+            $resultado->execute();
+            while($fila = $resultado->fetch()){
+                array_push($arraySalas, new Sala($fila));
+            }
+        }
+        catch(PDOException $e){
+            echo "<script>alert('Error en getAllSalas(): ".$e->getMessage()."')</script>";
+        }
+        finally{
+            $resultado->closeCursor();
+            $conexion = null;
+            return $arraySalas;
         }
     }
 
@@ -122,6 +145,29 @@ class BD_Cine{
         }
         catch(PDOException $e){
             echo "<script>alert('Error en insertar_comida(): ".$e->getMessage()."')</script>";
+        }
+        finally{
+            $resultado->closeCursor();
+            $conexion = null;
+            return $exito;
+        }
+    }
+
+    //UPDATES
+    //UPDATE SALE
+    public static function updateSala($idSala, $numFilas, $numButacas){
+        $exito = false;
+        try{
+            $sql = "UPDATE salas SET numFilas = ?, numButacas = ? WHERE idSala = ?";
+            $conexion = self::realizarConexion();
+            $resultado =  $conexion->prepare($sql);
+            $afectados = $resultado->execute(array($numFilas, $numButacas, $idSala));
+            if ($afectados > 0){
+                $exito = true;
+            }
+        }
+        catch(PDOException $e){
+            echo "<script>alert('Error en updateSala(): ".$e->getMessage()."')</script>";
         }
         finally{
             $resultado->closeCursor();

@@ -10857,7 +10857,19 @@ textarea.form-control-lg {
   }
 }
 /*Mis estilos*/
-/*-Index */
+/*Admin*/
+#tablaSalas,
+#tablaSalas td,
+#tablaSalas th {
+  border: 1.25pt solid #f8f9fa;
+  border-collapse: collapse;
+}
+
+#tablaSalas td, #tablaSalas th {
+  padding: 8pt;
+}
+
+/*Index */
 #trailer {
   width: 350pt;
   height: 180pt;

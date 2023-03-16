@@ -42,7 +42,19 @@ $theme-colors: (
 
 /*Mis estilos*/
 
-/*-Index */
+/*Admin*/
+#tablaSalas,
+#tablaSalas td,
+#tablaSalas th{
+    border: 1.25pt solid $light;
+    border-collapse: collapse;
+}
+
+#tablaSalas td, #tablaSalas th{
+    padding: 8pt;
+}
+
+/*Index */
 #trailer{
     width: 350pt;
     height: 180pt;

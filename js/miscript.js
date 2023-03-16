@@ -41,7 +41,6 @@ $(document).ready(function(){
                 url: 'data/BD_Manager.php',
                 type: 'POST',
                 success: function(datosRecogidos){
-                    //console.log(datosRecogidos)
                     mostrarPerfil(JSON.parse(datosRecogidos))
                 }
             })
