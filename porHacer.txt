@@ -1,0 +1,19 @@
+-Administracion
+    +Conectar a BD para mostrar la tabla de filas y columnas
+    +En un modal, poner la opción de editar la fila de la BD,
+    pero solo el numero de filas y de columnas
+
+-Index - Reserva
+    +Hay que darle funcionalidad al modal de los asientos:
+        *¿Solo se puede seleccionar uno?
+
+-Index - Grafico
+    +NUEVA SECCIÓN
+    +Crear un JSON con los datos del grafico para enviarlo
+    +Utilizar los paquetes que dijo Miguel Angel para recuperar
+    el grafico en si y mostrarlo en el index
+
+-Index
+    +Funcionalidad a algunos botones:
+        *Cartelera = getAllPeliculas
+        *Horarios = JSON
