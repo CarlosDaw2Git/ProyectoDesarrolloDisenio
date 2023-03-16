@@ -102,6 +102,8 @@ $(document).ready(function(){
 
 //Carga - Reserva
 $(document).on("click", ".asiento:not(.ocupado)", function(){
+    let allAsientos = $(".asiento:not(.ocupado)")
+    
     $(this).toggleClass('seleccionado')
 })
 
@@ -120,6 +122,10 @@ $(document).on("click", ".btnInfoPelicula", function(){
             infoPelicula(JSON.parse(datosRecogidos))
         }
     })
+})
+
+$(document).on("click", "#btnModalAsientos", function(){
+    
 })
 
 $(document).on("click", "#reservarAsiento", function(){
