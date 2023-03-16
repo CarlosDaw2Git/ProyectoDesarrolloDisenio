@@ -1,8 +1,8 @@
--Index
-    +Funcionalidad a algunos botones:
-        *Cartelera = getAllPeliculas
-        *Horarios = JSON
-
 -Index - Reserva
     +Hay que darle funcionalidad al modal de los asientos:
-        *¿Solo se puede seleccionar uno?
+        *¿Solo se puede seleccionar uno? - seleccionar
+        *¿Has probado a usar el array creado en el script?
+            -Filas = .col-noseque
+            -Columna = .asiento
+            -Cada vez que una película está seleccionada,
+            busca en el array con ese nombre y lo recorres

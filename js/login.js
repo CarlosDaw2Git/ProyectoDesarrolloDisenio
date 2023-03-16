@@ -93,7 +93,7 @@ function crearUsuario(nombre, clave, repiteClave){
         url: 'data/BD_Manager.php',
         type: 'POST',
         success: function(datosRecogidos){
-            $('#errorReserva').text(datosRecogidos)
+            window.location.reload()
         }
     })
 }

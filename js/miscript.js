@@ -3,6 +3,19 @@ let butacasOcupadas = []
 //CARGA DEL ARCHIVO
 //Carga - Index
 $(document).ready(function(){
+    //Trailer aleatorio
+    getTrailerAleatorio()
+
+    //Veces que has visitado la página
+    if(!comprobarCookie("visitas")){
+        document.cookie = "visitas=1;max-age=99999999;"
+    }
+    else{
+        let numVisitas = parseInt(getValorCookie("visitas"))
+        document.cookie = "visitas="+(numVisitas + 1)+";max-age=99999999;"
+    }
+
+    //Funcionalidades de los botones:
     $('#linkInicio').click(function(){
         $('#contenidoWeb').html("")
     })
@@ -62,7 +75,6 @@ $(document).ready(function(){
             window.location = "login.html"
         })
     }
-    
 
     $('#botonReserva').click(function(){
         //Mostrar formulario de las reservas
@@ -125,6 +137,24 @@ $(document).on("click", '#cerrarSesion', function(){
 })
 
 //FUNCIONES
+//Funciones - Index
+function getTrailerAleatorio(){
+    let trailers = ["https://www.youtube.com/embed/FSyWAxUg3Go",
+        "https://www.youtube.com/embed/gBil8RpweBE",
+        "https://www.youtube.com/embed/VpZjyY4wPi0"
+    ]
+    let index = parseInt(getValorCookie("trailer"))
+
+    if(!comprobarCookie("trailer") || index == 2){
+        document.cookie = "trailer=0;max-age=99999999;"
+    }
+    else{
+        document.cookie = "trailer="+(index + 1)+";max-age=99999999;"
+    }
+
+    console.log(document.cookie)
+    $('#trailer').attr("src", trailers[getValorCookie("trailer")])
+}
 //Funciones - Acerca De
 function mostrarDatosCine(datosJson){
     $('#contenidoWeb').html('<div id="datosCine" class="mt-4 mb-4"></div>')
@@ -150,19 +180,27 @@ function mostrarPerfil(datosJson){
         let html = '\
         <h2 class="mb-2 text-center">Mi perfil</h2>\
         <div class="container-fluid d-flex flex-column align-items-center">\
-            <table id="tablaPerfil">\
+            <p>Veces que se ha visitado la página:\
+            '+getValorCookie("visitas")+'</p>\
+            <table id="tablaDatosCine">\
                 <tr>\
-                    <td>Nombre:</td>\
+                    <th>Nombre:</th>\
                     <td>'+datosJson.nombre+'</td>\
                 </tr>\
                 <tr>\
-                    <td>Contraseña:</td>\
+                    <th>Contraseña:</th>\
                     <td>'+datosJson.clave+'</td>\
                 </tr>\
                 <tr>\
-                    <td>¿Es administrador?</td>\
-                    <td>'+datosJson.admin+'</td>\
-                </tr>\
+                    <th>¿Es administrador?</th>\
+                    <td>'
+        if(datosJson.admin == "0"){
+            html += "No"
+        }
+        else{
+            html += "Si"
+        }
+        html += '</td></tr>\
             </table>\
             <button class="btn btn-danger mt-3" id="cerrarSesion">Cerrar sesión</button>\
         </div>'
