@@ -17,7 +17,7 @@
                 <div>
                     <button class="btn btn-danger me-2" id="reservarAsiento">Reservar</button>
                     <button class='btn btn-danger me-5' id="btnModalAsientos" 
-                    data-bs-toggle='modal' data-bs-target='#modalAsientos'>Asientos</button>
+                    data-bs-toggle='modal' data-bs-target='#modalAsientos' disabled>Asientos</button>
                 </div>
             </div>
             <div class="col-12">
@@ -54,7 +54,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 fw-bolder" id="tituloModalAsientos">Sala 1</h1>
+                <h1 class="modal-title fs-5 fw-bolder" id="tituloModalAsientos"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="sala">
@@ -63,8 +63,8 @@
                         <div id="pantalla"></div>
                         <div id="asientos" class="container">
                             <div class="d-flex justify-content-center">
-                                <span class="asiento"><i class="bi bi-laptop-fill"></i></span>
-                                <span class="asiento"><i class="bi bi-laptop-fill"></i></span>
+                                <span class="asiento ocupado"><i class="bi bi-laptop-fill"></i></span>
+                                <span class="asiento ocupado"><i class="bi bi-laptop-fill"></i></span>
                                 <span class="asiento"><i class="bi bi-laptop-fill"></i></span>
                                 <span class="asiento"><i class="bi bi-laptop-fill"></i></span>
                                 <span class="asiento"><i class="bi bi-laptop-fill"></i></span>
@@ -145,6 +145,7 @@
                         </div>
                     </div>
                 </div>
+                <p class="text-danger text-center" id="errorAsientos"></p>
             </div>
         </div>
     </div>

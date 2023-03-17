@@ -1,4 +1,5 @@
 let butacasOcupadas = []
+let numAsientosPorFila = 8
 
 //CARGA DEL ARCHIVO
 //Carga - Index
@@ -101,12 +102,6 @@ $(document).ready(function(){
 })
 
 //Carga - Reserva
-$(document).on("click", ".asiento:not(.ocupado)", function(){
-    let allAsientos = $(".asiento:not(.ocupado)")
-    
-    $(this).toggleClass('seleccionado')
-})
-
 $(document).on("click", ".seleccionarPelicula",function(){
     seleccionarPelicula($(this).parent().parent())
 })
@@ -124,8 +119,8 @@ $(document).on("click", ".btnInfoPelicula", function(){
     })
 })
 
-$(document).on("click", "#btnModalAsientos", function(){
-    
+$(document).on("click", ".asiento", function(){
+    comprobarAsientos($(this))
 })
 
 $(document).on("click", "#reservarAsiento", function(){
@@ -157,8 +152,7 @@ function getTrailerAleatorio(){
     else{
         document.cookie = "trailer="+(index + 1)+";max-age=99999999;"
     }
-
-    console.log(document.cookie)
+    //console.log(document.cookie)
     $('#trailer').attr("src", trailers[getValorCookie("trailer")])
 }
 //Funciones - Acerca De
@@ -230,21 +224,6 @@ function mostrarReserva(datosJson){
     });
 }
 
-function seleccionarPelicula(fila){
-    let tituloBuscado = fila.find('.tituloPelicula').text()
-    let allFilas = $('.peliculas .fila')
-    allFilas.each(function(){
-        let tituloActual = $(this).find('.tituloPelicula').text()
-        if (tituloBuscado == tituloActual){
-            $(this).css('background-color', 'lightgray')
-            $('#peliculaSeleccionada').text(tituloActual)
-        }
-        else{
-            $(this).css('background-color', 'rgba(0, 0, 0, 0)')
-        }
-    })
-}
-
 function infoPelicula(datosJson){
     let html = '<div class="col-6">\
     <img src="./img/'+datosJson.nombreImagen+'" alt="imagen" class="img-fluid w-75"></div>\
@@ -256,6 +235,96 @@ function infoPelicula(datosJson){
 
     $('#tituloModalPelicula').text(datosJson.nombre)
     $('#infoPelicula .row').html(html)
+}
+
+function seleccionarPelicula(fila){
+    let tituloBuscado = fila.find('.tituloPelicula').text()
+    let allFilas = $('.peliculas .fila')
+    allFilas.each(function(){
+        let tituloActual = $(this).find('.tituloPelicula').text()
+        if (tituloBuscado == tituloActual){
+            $(this).css('background-color', 'lightgray')
+        }
+        else{
+            $(this).css('background-color', 'rgba(0, 0, 0, 0)')
+        }
+    })
+    $('#peliculaSeleccionada').text(tituloBuscado)
+    actualizarModalAsientos(tituloBuscado)
+
+}
+
+function actualizarModalAsientos(titulo){
+    //Activamos el boton y ponemos el titulo
+    $('#btnModalAsientos').removeAttr('disabled')
+    $('#tituloModalAsientos').text(titulo)
+
+    //Removemos todos los asientos, tanto ocupados
+    //como seleccionados
+    let allAsientos = $('.asiento')
+    allAsientos.each(function(){
+        $(this).removeClass('ocupado')
+        $(this).removeClass('seleccionado')
+    })
+
+    //Comprobamos el array, si no existe el index
+    //con ese nombre de película, salimos de la función
+    if(butacasOcupadas[titulo] == undefined){
+        return false
+    }
+
+    //Extraemos ese array y lo recorremos
+    let arrAsientosOcupados = butacasOcupadas[titulo]
+    arrAsientosOcupados.forEach(element => {
+        let datos = element.split(";")
+        let fila = parseInt(datos[0]) - 1
+        let columna = parseInt(datos[1])
+
+        let numAsiento = (fila * numAsientosPorFila) + columna
+        allAsientos.eq(numAsiento - 1).addClass("ocupado")
+
+    });
+}
+
+function comprobarAsientos(asiento){
+    $('#errorAsientos').text("")
+
+    let clases = asiento.attr("class").split(" ")
+    //Primera condicion - Que el asiento no esté ocupado
+    if(clases.find(element => element == "ocupado")){
+        $('#errorAsientos').text("Error: Ese asiento está ocupado")
+        return false
+    }
+    //Segunda condicion - Que el asiento esté seleccionado
+    if(clases.find(element => element == "seleccionado")){
+        asiento.toggleClass("seleccionado")
+        $('#filaEspectador').val("")
+        $('#butacaEspectador').val("")
+        return false
+    }
+    //Tercera condicion - Comprobar que no haya ya un asiento seleccionado
+    console.log($('.seleccionado').length)
+    if($('.seleccionado').length > 0){
+        $('#errorAsientos').text("Error: Solo se puede seleccionar un asiento")
+        return false
+    }
+    asiento.toggleClass("seleccionado")
+
+    //Averiguar cual es la fila y la columna para ponerlo en los inputs
+    let numAsientoTotal =  -1
+    let allAsientos = $('.asiento')
+    for (let i = 0; i <= allAsientos.length; i++) {
+        let asientoBuscando = allAsientos.eq(i)
+        if(asientoBuscando.is(asiento)){
+            numAsientoTotal = i + 1
+            break
+        }
+    }
+    let numFila = Math.floor(numAsientoTotal / numAsientosPorFila) + 1
+    let numAsiento = Math.floor(numAsientoTotal % numAsientosPorFila)
+
+    $('#filaEspectador').val(numFila)
+    $('#butacaEspectador').val(numAsiento)
 }
 
 function reservarPelicula(){
@@ -301,6 +370,7 @@ function reservarPelicula(){
             allVendidas.eq(index).append(filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada))
             let numAsientos = butacasOcupadas[peliculaSeleccionada].length
             allVendidas.eq(index).find('.cabecera p').text(numAsientos+' asientos ocupados')
+            actualizarModalAsientos(peliculaSeleccionada)
             return false
         }
     }
@@ -308,7 +378,11 @@ function reservarPelicula(){
     //Si no existe, lo crea
     $('.listadoVendidas').append(tituloDePeliculaHtml(peliculaSeleccionada)
     +filaReservaHtml(nombre, fila, butaca, peliculaSeleccionada))
+    //Y lo añade al array
     butacasOcupadas[peliculaSeleccionada].push(fila+";"+butaca)
+
+    //Actualizar modal asientos
+    actualizarModalAsientos(peliculaSeleccionada)
 }
 
 function borrar(fila){
@@ -324,13 +398,15 @@ function borrar(fila){
     else{
         fila.remove()
         let valorAsiento = filaAsiento+";"+butacaAsiento
-        for(let index in butacasOcupadas[nombrePelicula]){
-            if(butacasOcupadas[nombrePelicula][index] == valorAsiento){
+        let arrAsientosPelicula = butacasOcupadas[nombrePelicula]
+        for(let index in arrAsientosPelicula){
+            if(arrAsientosPelicula[index] == valorAsiento){
                 butacasOcupadas[nombrePelicula].splice(index)
             }
         }
         elementoPadre.find('.cabecera p').text((elementoPadre.find('.row').length)+' asientos ocupados')
     }
+    actualizarModalAsientos(nombrePelicula)
 }
 
 //Desc:Filas para la selección de la pelicula ANTES de hacer la reserva
