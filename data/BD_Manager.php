@@ -40,11 +40,25 @@ if(isset($_REQUEST['verificarUsuario'])){
 if(isset($_REQUEST['crearUsuario'])){
     $nombre = $_REQUEST['nombre'];
     $clave = $_REQUEST['clave'];
-    if(BD_Cine::insertUsuario($nombre, $clave)){
-        echo "Usuario registrado correctamente";
+    if(!empty(BD_Cine::getUserByNombre($nombre))){
+        echo json_encode(array(
+            "success" => false,
+            "error" => "El usuario ya existe"
+        ));
     }
     else{
-        echo "Error";
+        if(BD_Cine::insertUsuario($nombre, $clave)){
+            echo json_encode(array(
+                "success" => true,
+                "error" => ""
+            ));
+        }
+        else{
+            echo json_encode(array(
+                "success" => false,
+                "error" => "Error al crear el usuario"
+            ));
+        }
     }
 }
 

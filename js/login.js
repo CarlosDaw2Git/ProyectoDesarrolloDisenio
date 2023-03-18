@@ -28,13 +28,13 @@ $(document).on("click", "#crearUsuario",function(){
 
 function verificarUsuario(nombre, clave){
     if(nombre == ""){
-        $('#errorUpdate').text(
+        $('#errorReserva').text(
             "El Campo \"Nombre\" no puede estar vacío"
         )
         return null
     }
     if(clave == ""){
-        $('#errorUpdate').text(
+        $('#errorReserva').text(
             "El campo \"Contraseña\" no puede estar vacía"
         )
         return null
@@ -93,7 +93,13 @@ function crearUsuario(nombre, clave, repiteClave){
         url: 'data/BD_Manager.php',
         type: 'POST',
         success: function(datosRecogidos){
-            window.location.reload()
+            datosJson = JSON.parse(datosRecogidos)
+            if(datosJson.success == false){
+                $('#errorReserva').text(datosJson.error)
+            }
+            else{
+                window.location.reload()
+            }
         }
     })
 }

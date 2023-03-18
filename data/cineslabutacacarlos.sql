@@ -18,8 +18,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cineslabutaca`
+-- Base de datos: `cineslabutacacarlos`
 --
+
+CREATE DATABASE cineslabutacacarlos;
+USE cineslabutacacarlos;
 
 -- --------------------------------------------------------
 

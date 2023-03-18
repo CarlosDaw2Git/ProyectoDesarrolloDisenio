@@ -15,6 +15,7 @@ $(document).ready(function(){
         let numVisitas = parseInt(getValorCookie("visitas"))
         document.cookie = "visitas="+(numVisitas + 1)+";max-age=99999999;"
     }
+    $('header span').text(getValorCookie('visitas'))
 
     //Funcionalidades de los botones:
     $('#linkInicio').click(function(){
@@ -180,8 +181,6 @@ function mostrarPerfil(datosJson){
         let html = '\
         <h2 class="mb-2 text-center">Mi perfil</h2>\
         <div class="container-fluid d-flex flex-column align-items-center">\
-            <p>Veces que se ha visitado la página:\
-            '+getValorCookie("visitas")+'</p>\
             <table id="tablaDatosCine">\
                 <tr>\
                     <th>Nombre:</th>\
@@ -284,6 +283,8 @@ function actualizarModalAsientos(titulo){
         allAsientos.eq(numAsiento - 1).addClass("ocupado")
 
     });
+
+    //console.log(arrAsientosOcupados)
 }
 
 function comprobarAsientos(asiento){
@@ -303,7 +304,7 @@ function comprobarAsientos(asiento){
         return false
     }
     //Tercera condicion - Comprobar que no haya ya un asiento seleccionado
-    console.log($('.seleccionado').length)
+    //console.log($('.seleccionado').length)
     if($('.seleccionado').length > 0){
         $('#errorAsientos').text("Error: Solo se puede seleccionar un asiento")
         return false
@@ -401,7 +402,7 @@ function borrar(fila){
         let arrAsientosPelicula = butacasOcupadas[nombrePelicula]
         for(let index in arrAsientosPelicula){
             if(arrAsientosPelicula[index] == valorAsiento){
-                butacasOcupadas[nombrePelicula].splice(index)
+                butacasOcupadas[nombrePelicula].splice(index, 1)
             }
         }
         elementoPadre.find('.cabecera p').text((elementoPadre.find('.row').length)+' asientos ocupados')
